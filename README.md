@@ -1,16 +1,44 @@
 # gilded-rose
 
-## Project setup
+This is a small project for Brennus Technical Assessment
+
+## Requirement
+
+To run this project, you will need to have a few things installed:
+
+* Java
+* Npm 
+
+
+## Back-End
+
+### Run
+
+```
+$ java -jar gilded-rose-backend-1.0.0.jar
+```
+
+### Swagger UI
+
+`http://localhost:8080/swagger-ui.html`
+
+
+
+## Front-end
+
+Located in `front` directory, all those commands should be executed in it.
+
+### Get dependencies
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Run in development
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Build for production
 ```
 npm run build
 ```
@@ -25,5 +53,3 @@ npm run test
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
