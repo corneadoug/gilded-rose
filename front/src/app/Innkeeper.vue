@@ -2,22 +2,21 @@
   <div>
     <h1>Innkeeper</h1>
 
-    <v-list>
-      <v-list-tile v-for="item in inventory" :key="item.id">
-        <v-list-tile-content>
-          <v-list-tile-title v-text="item.name"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-    </v-list>
+    <v-layout row wrap justify-center>
+      <item-card v-for="item in inventory" :key="item.id" :item="item"/>
+    </v-layout>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
 
+// Components imports
+import ItemCard from '@/components/ItemCard.vue';
+
 export default {
   name: "Innkeeper",
-  components: {},
+  components: { ItemCard },
   computed: {
     ...mapState(["inventory"])
   },
