@@ -26,9 +26,17 @@ $ java -jar gilded-rose-backend-1.0.0.jar
 
 ## Front-end
 
+### Tech used
+
+* [Vue.js](https://vuejs.org/v2/guide/)
+* [Vue CLI](https://cli.vuejs.org/)
+* [Vue Router](https://router.vuejs.org/)
+* [Vuetify](https://vuetifyjs.com/en/getting-started/quick-start)
+
+
 Located in `front` directory, all those commands should be executed in it.
 
-### Get dependencies
+### Install dependencies
 ```
 npm install
 ```
@@ -43,7 +51,7 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
+### Run Unit tests
 ```
 npm run test
 ```

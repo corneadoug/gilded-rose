@@ -2,8 +2,8 @@
   <div id="home">
     <h1>Welcome, choose where to go</h1>
 
-    <router-link class="routerLink" to="/shop">Shop</router-link>
-    <router-link class="routerLink" to="/innkeeper">Admin</router-link>
+    <v-btn color="info" @click="$router.push('/shop')">Shop</v-btn>
+    <v-btn color="warning" @click="$router.push('/innkeeper')">Admin</v-btn>
   </div>
 </template>
 
@@ -16,6 +16,10 @@ export default {
 </script>
 
 <style scoped>
+
+#home {
+  padding-top: 60px;
+}
 
 .routerLink {
   margin: 10px;
