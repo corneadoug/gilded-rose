@@ -1,6 +1,12 @@
 <template>
   <div>
-    <h1>Innkeeper</h1>
+      <h1>Innkeeper</h1>
+      <div class="dayContainer">
+        <span><b>Day:</b> {{dayPassed}}</span>
+        <v-btn fab dark small color="indigo">
+          <v-icon @click="nextDay" dark>add</v-icon>
+        </v-btn>
+      </div>
 
     <!-- Filtering Form -->
     <filtering-form/>
@@ -13,20 +19,21 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 
 // Components imports
-import ItemCard from '@/components/ItemCard.vue';
-import FilteringForm from '@/components/FilteringForm.vue';
+import ItemCard from "@/components/ItemCard.vue";
+import FilteringForm from "@/components/FilteringForm.vue";
 
 export default {
   name: "Innkeeper",
   components: { ItemCard, FilteringForm },
   computed: {
-    ...mapGetters(["filteredInventory"])
+    ...mapGetters(["filteredInventory"]),
+    ...mapState(["dayPassed"])
   },
   methods: {
-    ...mapActions(["fetchInventory"])
+    ...mapActions(["fetchInventory", "nextDay"])
   },
   mounted() {
     this.fetchInventory();
@@ -35,4 +42,9 @@ export default {
 </script>
 
 <style scoped>
+.dayContainer {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+}
 </style>

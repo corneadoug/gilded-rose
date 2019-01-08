@@ -13,6 +13,7 @@ export default new Vuex.Store({
   // State - Global Data Stored
   state: {
     inventory: [],
+    dayPassed: 0,
     filters: {
       name: '',
       minQuality: 0,
@@ -33,14 +34,32 @@ export default new Vuex.Store({
         state.filters.minQuality = 0;
         state.filters.maxQuality = 100;
       }
+    },
+    incrementDay(state) {
+      state.dayPassed = state.dayPassed++;
     }
   },
   // Actions - Only link between the view and the Store Setters
   actions: {
     fetchInventory({ commit }) {
-      axios.get(`${URL}/items/`).then(res => {
+      axios.get(`${URL}/items/`)
+      .then(res => {
         commit('setInventory', res.data);
       })
+      .catch(() => {
+        // TODO - Log Errors Somewhere
+      });
+    },
+
+    nextDay({ commit, dispatch }) {
+      axios.post(`${URL}/nextDay`)
+      .then(() => {
+        commit('incrementDay');
+        dispatch('fetchInventory');
+      })
+      .catch(() => {
+        // TODO - Log Errors Somewhere
+      });
     },
 
     modifyFilter({ commit }, data) {
