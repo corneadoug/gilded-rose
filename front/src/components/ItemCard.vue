@@ -1,5 +1,10 @@
 <template>
   <v-card class="itemCard" :color="bgColor" dark>
+
+    <div v-if="clickable" class="hoverLayer" @click="$emit('click')">
+      <v-icon class="addCartIcon" dark>add_shopping_cart</v-icon>
+    </div>
+
     <v-layout column class="cardLayout">
       <!-- Header of the card -->
       <div class="typeContainer">
@@ -32,6 +37,10 @@ export default {
     item: {
       type: Object,
       required: true
+    },
+    clickable: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -77,5 +86,27 @@ export default {
 
 .valuesContainer {
   height: 40px;
+}
+
+.hoverLayer {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addCartIcon {
+  display: none;
+}
+
+.hoverLayer:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.hoverLayer:hover > .addCartIcon {
+  display: block;
 }
 </style>

@@ -14,6 +14,7 @@ export default new Vuex.Store({
   state: {
     inventory: [],
     dayPassed: 0,
+    shoppingCart: [],
     filters: {
       name: '',
       minQuality: 0,
@@ -37,6 +38,9 @@ export default new Vuex.Store({
     },
     incrementDay(state) {
       state.dayPassed = state.dayPassed++;
+    },
+    addToCart(state, data) {
+      state.shoppingCart.push(data);
     }
   },
   // Actions - Only link between the view and the Store Setters
@@ -64,6 +68,10 @@ export default new Vuex.Store({
 
     modifyFilter({ commit }, data) {
       commit('setFilters', data);
+    },
+
+    addItemToCart({ commit }, data) {
+      commit('addToCart', data);
     }
   },
   getters: {
@@ -75,6 +83,10 @@ export default new Vuex.Store({
         return false;
       });
       return invent;
+    },
+
+    nbProductInCart: state => {
+      return state.shoppingCart.length;
     }
   }
 })
