@@ -88,6 +88,33 @@ export default new Vuex.Store({
       return state.shoppingCart.length;
     },
 
+    graphData: state => {
+      // Get list of types
+      let types = state.inventory.reduce((acc, val) => {
+        if (!acc.hasOwnProperty(val.type)) {
+          acc[val.type] = val.type;
+        }
+        return acc;
+      }, {});
+
+      // Prepare Data for Graph
+      let res = [["Type", "Number", "Average Quality"]];
+      Object.keys(types).forEach((el) => {
+        let nb = 0;
+        let total = 0;
+        state.inventory.forEach((item) => {
+          if (item.type === el) {
+            nb++;
+            total = total + item.quality;
+          }
+        });
+        
+        res.push([el, nb, nb > 0 ? total / nb : 0])
+      });
+
+      return res;
+    },
+
     computedCart: state => {
       // Get the elements in the cart grouped by id
       let grouped = state.shoppingCart.reduce((acc, val) => {

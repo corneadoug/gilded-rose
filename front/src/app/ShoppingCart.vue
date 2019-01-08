@@ -20,9 +20,6 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 
-// Components imports
-import ItemsView from "@/components/ItemsView.vue";
-
 export default {
   name: "ShoppingCart",
   components: {},
