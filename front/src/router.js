@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import Home from '@/app/Home.vue';
 import Shop from '@/app/Shop.vue';
+import ShoppingCart from '@/app/ShoppingCart.vue';
 import Innkeeper from '@/app/Innkeeper.vue';
 
 Vue.use(Router)
@@ -23,6 +24,11 @@ export default new Router({
       path: '/shop',
       name: 'shop',
       component: Shop
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: ShoppingCart
     },
     { path: '*', redirect: '/' }
   ]

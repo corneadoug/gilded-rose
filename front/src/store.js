@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 // Utils Import
-import {itemMatchesFilter} from '@/utils.js'
+import { itemMatchesFilter } from '@/utils.js'
 
 Vue.use(Vuex)
 
@@ -47,23 +47,23 @@ export default new Vuex.Store({
   actions: {
     fetchInventory({ commit }) {
       axios.get(`${URL}/items/`)
-      .then(res => {
-        commit('setInventory', res.data);
-      })
-      .catch(() => {
-        // TODO - Log Errors Somewhere
-      });
+        .then(res => {
+          commit('setInventory', res.data);
+        })
+        .catch(() => {
+          // TODO - Log Errors Somewhere
+        });
     },
 
     nextDay({ commit, dispatch }) {
       axios.post(`${URL}/nextDay`)
-      .then(() => {
-        commit('incrementDay');
-        dispatch('fetchInventory');
-      })
-      .catch(() => {
-        // TODO - Log Errors Somewhere
-      });
+        .then(() => {
+          commit('incrementDay');
+          dispatch('fetchInventory');
+        })
+        .catch(() => {
+          // TODO - Log Errors Somewhere
+        });
     },
 
     modifyFilter({ commit }, data) {
@@ -76,17 +76,41 @@ export default new Vuex.Store({
   },
   getters: {
     filteredInventory: state => {
-      let invent = state.inventory.filter(item => {
+      return state.inventory.filter(item => {
         if (itemMatchesFilter(item, state.filters)) {
           return true;
         }
         return false;
       });
-      return invent;
     },
 
     nbProductInCart: state => {
       return state.shoppingCart.length;
+    },
+
+    computedCart: state => {
+      // Get the elements in the cart grouped by id
+      let grouped = state.shoppingCart.reduce((acc, val) => {
+        if (acc.hasOwnProperty(val.id)) {
+          acc[val.id].nb = acc[val.id].nb + 1;
+        } else {
+          acc[val.id] = { id: val.id, nb: 1 };
+        }
+        return acc;
+      }, {});
+
+      // Transform from object to Array by adding latest values
+      let result = [];
+      state.inventory.forEach((value) => {
+        if (grouped.hasOwnProperty(value.id)) {
+          result.push({
+            nbInCart: grouped[value.id].nb,
+            details: value
+          });
+        }
+      });
+
+      return result;
     }
   }
 })
